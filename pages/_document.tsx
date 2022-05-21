@@ -9,10 +9,11 @@ import { theme } from '../lib/theme';
 export default class MyDocument extends Document {
 	render() {
 		return (
-			<Html lang='en' dir='ltr'>
+			<Html lang='ko' dir='ltr'>
 				<Head>
 					<meta charSet='utf-8' />
-					<meta name='theme-color' content={theme.palette.primary.main} />
+					<meta name='theme-color' content={theme.palette.secondary.main} />
+					<meta name='apple-mobile-web-app-capable' content='yes' />
 					<link
 						rel='stylesheet'
 						href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'

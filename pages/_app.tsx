@@ -20,6 +20,7 @@ export default function (props: AppProps) {
 	return (
 		<React.Fragment>
 			<Head>
+				<title>Whale Talk</title>
 				<meta
 					name='viewport'
 					content='minimum-scale=1, initial-scale=1, width=device-width'
