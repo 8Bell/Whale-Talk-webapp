@@ -37,8 +37,6 @@ export default class MyDocument extends Document {
 					<link rel='apple-touch-icon' href='/apple-touch-icon.png' />
 					<link rel='apple-touch-startup-image' href='/startup.png' />
 					<meta name='apple-mobile-web-app-capable' content='yes' />
-
-					<meta name='theme-color' content='#44546A' />
 					<link
 						rel='stylesheet'
 						href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
