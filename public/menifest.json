@@ -1,7 +1,22 @@
 {
-	"theme_color": "#44546A",
+	"name": "Whale Talk",
+	"short_name": "Whale Talk",
 	"background_color": "#fbfbfb",
-	"display": "browser",
+	"theme_color": "status bar color",
+	"description": "Whale Talk",
+	"display": "standalone",
 	"scope": "/",
-	"start_url": "/"
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "apple-touch-icon.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "apple-touch-icon.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	]
 }

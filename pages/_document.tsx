@@ -12,9 +12,9 @@ export default class MyDocument extends Document {
 			<Html lang='ko' dir='ltr'>
 				<Head>
 					<meta charSet='utf-8' />
-					<meta name='theme-color' content={theme.palette.secondary.main} />
-					<meta name='apple-mobile-web-app-capable' content='yes' />
+
 					<meta httpEquiv='X-UA-Compatible' content='IE=edge' />
+
 					<meta
 						name='viewport'
 						content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'
@@ -35,8 +35,17 @@ export default class MyDocument extends Document {
 						sizes='32x32'
 					/>
 					<link rel='apple-touch-icon' href='/apple-touch-icon.png' />
+					<link rel='shortcut icon' href='/apple-touch-icon.png' />
 					<link rel='apple-touch-startup-image' href='/startup.png' />
 					<meta name='apple-mobile-web-app-capable' content='yes' />
+
+					<meta name='theme-color' content='status bar color' />
+					<meta
+						name='apple-mobile-web-app-status-bar-style'
+						content='ios status bar color'
+					/>
+					<meta name='apple-mobile-web-app-title' content='Whale Talk' />
+
 					<link
 						rel='stylesheet'
 						href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
