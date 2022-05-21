@@ -14,6 +14,31 @@ export default class MyDocument extends Document {
 					<meta charSet='utf-8' />
 					<meta name='theme-color' content={theme.palette.secondary.main} />
 					<meta name='apple-mobile-web-app-capable' content='yes' />
+					<meta httpEquiv='X-UA-Compatible' content='IE=edge' />
+					<meta
+						name='viewport'
+						content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'
+					/>
+					<meta name='description' content='Description' />
+					<meta name='keywords' content='Keywords' />
+					<link rel='manifest' href='/manifest.json' />
+					<link
+						href='/apple-touch-icon.png'
+						rel='icon'
+						type='image/png'
+						sizes='16x16'
+					/>
+					<link
+						href='/apple-touch-icon.png'
+						rel='icon'
+						type='image/png'
+						sizes='32x32'
+					/>
+					<link rel='apple-touch-icon' href='/apple-touch-icon.png' />
+					<link rel='apple-touch-startup-image' href='/startup.png' />
+					<meta name='apple-mobile-web-app-capable' content='yes' />
+
+					<meta name='theme-color' content='#44546A' />
 					<link
 						rel='stylesheet'
 						href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
