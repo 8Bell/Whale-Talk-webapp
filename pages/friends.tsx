@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		height: 85,
 		backgroundColor: '#fbfbfb',
 		marginTop: 55,
-		borderBottom: 'solid 2px #ddd',
+		borderBottom: 'solid 1.5px #eee',
 	},
 	profileAvatar: {
 		top: '23%',

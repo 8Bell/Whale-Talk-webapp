@@ -38,7 +38,6 @@ export default class MyDocument extends Document {
 					<link rel='shortcut icon' href='/apple-touch-icon.png' />
 					<link rel='apple-touch-startup-image' href='/startup.png' />
 					<meta name='apple-mobile-web-app-capable' content='yes' />
-
 					<meta
 						name='apple-mobile-web-app-status-bar-style'
 						content='ios status bar color'
