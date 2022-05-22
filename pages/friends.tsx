@@ -335,6 +335,7 @@ export default function Friends() {
 								<Grid>
 									<Zoom in={chatMakingState}>
 										<FormControlLabel
+											label=''
 											control={
 												<Checkbox
 													icon={
