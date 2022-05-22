@@ -217,10 +217,12 @@ export default function SignIn() {
 			<Container component='main' maxWidth='xs'>
 				<CssBaseline />
 				<div className={classes.paper}>
-					<img
+					<Image
 						src='./images/whale plastic 2@0.5x.png'
 						alt='whale icon'
 						className={classes.icon}
+						height='300'
+						width='300'
 					/>
 
 					<form className={classes.form} noValidate onSubmit={onSubmit}>
