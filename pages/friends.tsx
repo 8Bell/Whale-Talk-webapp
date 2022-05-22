@@ -193,7 +193,7 @@ export default function Friends() {
 
 	// uid to color
 	const uidToColor = (inputUid: string) => {
-		const myAcc = users.filter((member: any) => member.uid === inputUid);
+		const myAcc: any = users.filter((member: any) => member.uid === inputUid);
 		try {
 			return myAcc[0].personalColor;
 		} catch (err) {
