@@ -14,6 +14,7 @@ import { authService, dbService, Timestamp } from '../fbase';
 import router from 'next/router';
 import Link from '../components/Link';
 import Image from 'next/image';
+import Head from 'next/head';
 
 function Copyright() {
 	return (
@@ -22,7 +23,7 @@ function Copyright() {
 			color='textSecondary'
 			align='center'
 			style={{
-				position: 'absolute',
+				position: 'fixed',
 				bottom: '30px',
 				left: '50%',
 				transform: 'translateX(-50%)',
@@ -39,30 +40,35 @@ function Copyright() {
 
 const useStyles = makeStyles((theme: Theme) => ({
 	paper: {
-		marginTop: theme.spacing(8),
+		marginTop: theme.spacing(3),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
+		paddingLeft: 5,
+		paddingRigt: 10,
 	},
 	icon: {
-		width: 250,
-		height: 250,
+		width: 200,
+		height: 200,
 	},
 
 	form: {
-		width: '100%', // Fix IE 11 issue.
+		width: 'calc(100% - 50px)', // Fix IE 11 issue.
 		marginTop: theme.spacing(0),
 	},
 	textField: {
-		marginTop: theme.spacing(-1),
+		marginTop: theme.spacing(0),
+		borderRadius: '30px',
 	},
 	submit: {
-		margin: theme.spacing(2, 0, 2),
+		margin: theme.spacing(6, 0, 3),
 		height: '50px',
+		borderRadius: '30px',
 	},
 	title: {
-		margin: theme.spacing(-2, 0, 3, 0),
-		fontSize: '20px',
+		margin: theme.spacing(-1, 0, 1, 0),
+		fontSize: '23px',
+		fontWeight: 500,
 		color: '#44546A',
 	},
 }));
@@ -165,13 +171,18 @@ export default function SignUp() {
 
 	return (
 		<React.Fragment>
+			<Head>
+				<meta name='theme-color' content='#fbfbfb' />
+			</Head>
 			<Container component='main' maxWidth='xs'>
 				<CssBaseline />
 				<div className={classes.paper}>
-					<img
-						src='./images/whale plastic 2@0.5x.png'
+					<Image
+						src='/images/whale plastic 2@0.5x.png'
 						alt='whale icon'
 						className={classes.icon}
+						height='200'
+						width='200'
 					/>
 					<Typography component='h1' variant='h5' className={classes.title}>
 						가입하기
@@ -180,7 +191,7 @@ export default function SignUp() {
 						<Grid container spacing={2}>
 							<Grid item xs={12}>
 								<TextField
-									variant='outlined'
+									variant='standard'
 									required
 									fullWidth
 									id='Name'
@@ -194,7 +205,7 @@ export default function SignUp() {
 							</Grid>
 							<Grid item xs={12}>
 								<TextField
-									variant='outlined'
+									variant='standard'
 									required
 									fullWidth
 									id='email'
@@ -208,7 +219,7 @@ export default function SignUp() {
 							</Grid>
 							<Grid item xs={12}>
 								<TextField
-									variant='outlined'
+									variant='standard'
 									required
 									fullWidth
 									name='password'
@@ -223,7 +234,7 @@ export default function SignUp() {
 							</Grid>
 							<Grid item xs={12}>
 								<TextField
-									variant='outlined'
+									variant='standard'
 									required
 									fullWidth
 									name='rePassword'
@@ -246,10 +257,9 @@ export default function SignUp() {
 							가입하기
 						</Button>
 					</form>
-					<Grid container justifyContent='flex-end'>
-						<Grid item xs></Grid>
+					<Grid container justifyContent='flex-end' style={{ marginRight: 50 }}>
 						<Grid item>
-							<Link href='/home' variant='body2'>
+							<Link href='/' variant='body2'>
 								로그인 화면으로 돌아가기
 							</Link>
 						</Grid>

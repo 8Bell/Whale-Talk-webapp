@@ -12,12 +12,13 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { authLocal, authService, authSession } from '../fbase';
-import { FormControlLabel, Switch, withStyles } from '@material-ui/core';
+import { createStyles, FormControlLabel, InputBase, Switch, withStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import Link from '../components/Link';
 
 import { SwitchClassKey, SwitchProps } from '@material-ui/core/Switch';
 import Image from 'next/image';
+import { yellow } from '@material-ui/core/colors';
 
 function Copyright() {
 	return (
@@ -26,7 +27,7 @@ function Copyright() {
 			color='textSecondary'
 			align='center'
 			style={{
-				position: 'absolute',
+				position: 'fixed',
 				bottom: '30px',
 				left: '50%',
 				transform: 'translateX(-50%)',
@@ -43,7 +44,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme: Theme) => ({
 	paper: {
-		marginTop: theme.spacing(8),
+		marginTop: theme.spacing(2),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
@@ -51,23 +52,30 @@ const useStyles = makeStyles((theme: Theme) => ({
 		minWidth: 300,
 		position: 'absolute',
 		left: '50%',
-		transform: 'translateX(-50%)',
+		transform: 'translateX(-51%)',
 	},
 	icon: {
-		width: 250,
-		height: 250,
+		width: 200,
+		height: 200,
 	},
 
 	form: {
 		width: '100%', // Fix IE 11 issue.
-		marginTop: theme.spacing(3),
+		margin: theme.spacing(2, 0, 0, 0),
 	},
 	textField: {
 		margin: theme.spacing(0.7),
+		borderRadius: '30px',
+		color: '#888',
+		border: 'solid 1px #aaa',
+		height: 50,
+		paddingLeft: 20,
+		paddingTop: 1,
 	},
 	submit: {
-		margin: theme.spacing(5, 0, 2, 0.6),
-		height: '50px',
+		margin: theme.spacing(8, 0, 3, 0.6),
+		height: 50,
+		borderRadius: '30px',
 	},
 	checkBox: {
 		marginLeft: 0,
@@ -213,12 +221,13 @@ export default function SignIn() {
 		<React.Fragment>
 			<Head>
 				<title>Whale Talk</title>
+				<meta name='theme-color' content='#fbfbfb' />
 			</Head>
 			<Container component='main' maxWidth='xs'>
 				<CssBaseline />
 				<div className={classes.paper}>
 					<Image
-						src='./images/whale plastic 2@0.5x.png'
+						src='/images/whale plastic 2@0.5x.png'
 						alt='whale icon'
 						className={classes.icon}
 						height='200'
@@ -226,13 +235,10 @@ export default function SignIn() {
 					/>
 
 					<form className={classes.form} noValidate onSubmit={onSubmit}>
-						<TextField
-							variant='outlined'
-							margin='normal'
-							required
+						<InputBase
 							fullWidth
 							id='email'
-							label='이메일을 입력하세요'
+							placeholder='이메일을 입력하세요'
 							name='email'
 							autoComplete='email'
 							autoFocus
@@ -240,13 +246,11 @@ export default function SignIn() {
 							value={email}
 							onChange={onChange}
 						/>
-						<TextField
-							variant='outlined'
-							margin='normal'
+						<InputBase
 							required
 							fullWidth
 							name='password'
-							label='비밀번호를 입력하세요'
+							placeholder='비밀번호를 입력하세요'
 							type='password'
 							id='password'
 							autoComplete='current-password'
@@ -290,11 +294,13 @@ export default function SignIn() {
 							className={classes.submit}>
 							로그인
 						</Button>
-						<Grid container>
-							<Grid item xs></Grid>
+						<Grid container justifyContent='flex-end'>
 							<Grid item>
-								<Link href='/sign-up' variant='body2'>
-									{'회원이 아니신가요? 3초만에 가입하기'}
+								<Link
+									href='/sign-up'
+									variant='body2'
+									style={{ textAlign: 'center' }}>
+									{'3초만에 가입하기'}
 								</Link>
 							</Grid>
 						</Grid>

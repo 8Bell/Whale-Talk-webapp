@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			width: '100vw',
-			height: 70,
+			height: 55,
 			position: 'fixed',
 			top: 0,
 			left: 0,
@@ -33,24 +33,25 @@ const useStyles = makeStyles((theme: Theme) =>
 		title: {
 			flexGrow: 1,
 			color: '#444',
-			marginTop: 9,
+			fontSize: 22,
+			fontWeight: 500,
 		},
 		plusIconBtn: {
 			position: 'absolute',
 			zIndex: 2,
-			top: 8,
+			top: 0,
 			right: 10,
 			color: '#444',
 		},
 		nextIconBtn: {
 			position: 'absolute',
 			zIndex: 2,
-			top: 8,
+			top: 0,
 			right: 10,
 		},
 		nextIconText: {
 			marginRight: 5,
-			fontSize: 22,
+			fontSize: 20,
 			fontWeight: 500,
 		},
 	})
