@@ -4,54 +4,69 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import { authService, dbService } from '../fbase';
 import router from 'next/router';
-import { Avatar, Checkbox, Grid, Typography, Zoom } from '@material-ui/core';
+import { Avatar, Checkbox, Grid, Typography, Zoom, FormControlLabel } from '@material-ui/core';
 import FormDialog from '../components/addfriends';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import FriendsNavTop from '../components/friendsNavTop';
 import FriendsNavBottom from '../components/friendsNavBottom';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import Head from 'next/head';
 
 const useStyles = makeStyles((theme: Theme) => ({
+	background: {
+		position: 'fixed',
+		backgroundColor: '#fbfbfb',
+		top: 0,
+		height: '100vh',
+		width: '100vw',
+		zIndex: 0,
+	},
+
 	paper: {
-		minWidth: 500,
+		position: 'absolute',
+		width: 'calc(100vw - 20px)',
 		marginLeft: 10,
 		marginRight: 10,
+		zIndex: 1,
 	},
 	profile: {
-		height: 100,
+		height: 85,
 		backgroundColor: '#fbfbfb',
-		marginTop: 75,
+		marginTop: 55,
 		borderBottom: 'solid 2px #ddd',
 	},
 	profileAvatar: {
-		top: '20%',
+		top: '23%',
 		left: 10,
-		width: 60,
-		height: 60,
+		width: 50,
+		height: 50,
 		color: theme.palette.getContrastText(theme.palette.primary.main),
 		backgroundColor: theme.palette.primary.main,
 		fontWeight: 400,
-		fontSize: 30,
+		fontSize: 25,
 	},
 	profileName: {
-		marginTop: 23,
+		marginTop: 20,
 		marginLeft: 26,
+		fontSize: 19,
+		fontWeight: 500,
 	},
 	profileEmail: {
-		marginTop: -5,
+		marginTop: -4,
 		marginLeft: 27,
-		fontSize: 17,
+		fontSize: 15,
 		fontWeight: 400,
 		color: 'gray',
 	},
 	groupAvatars: {
-		marginTop: 30,
+		marginTop: 23,
 		marginRight: 10,
 		zIndex: 0,
 	},
 	groupAvatar: {
-		width: theme.spacing(7),
-		height: theme.spacing(7),
-
+		width: theme.spacing(2),
+		height: theme.spacing(2),
 		fontWeight: 500,
 	},
 	friends: {
@@ -63,19 +78,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 	friendsTitle: {
 		marginTop: 7,
 		marginLeft: 14,
-		marginBottom: 6,
+		marginBottom: 5,
 		color: 'gray',
+		fontSize: 13,
+		fontWeight: 500,
 	},
 	friend: {
-		height: 80,
+		height: 67,
 		backgroundColor: '#fbfbfb',
 		borderBottom: 'solid 1px #f0f0f0',
 	},
 	friendAvatar: {
-		top: '20%',
+		top: '23%',
 		left: 10,
-		width: 50,
-		height: 50,
+		width: 40,
+		height: 40,
 		color: theme.palette.getContrastText(theme.palette.primary.main),
 		backgroundColor: theme.palette.primary.main,
 		fontWeight: 500,
@@ -85,11 +102,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 	friendName: {
 		marginTop: 15,
 		marginLeft: 26,
+		fontSize: 16,
+		fontWeight: 500,
 	},
 	friendEmail: {
-		marginTop: -7,
+		marginTop: -5,
 		marginLeft: 27,
 		color: 'gray',
+		fontSize: 14,
+		fontWeight: 400,
 	},
 	friendCheckbox: {
 		marginTop: 20,
@@ -131,7 +152,7 @@ export default function Friends() {
 				setIsLoggedIn(true);
 			} else {
 				setIsLoggedIn(false);
-				router.push('/index');
+				router.push('/');
 			}
 			setInit(true);
 		});
@@ -170,6 +191,16 @@ export default function Friends() {
 			});
 	}, []);
 
+	// uid to color
+	const uidToColor = (inputUid: string) => {
+		const myAcc = users.filter((member: any) => member.uid === inputUid);
+		try {
+			return myAcc[0].personalColor;
+		} catch (err) {
+			//console.log(err);
+		}
+	};
+
 	//나를 제외한 유저 목록 필터링
 	useEffect(() => {
 		setMembers(users.filter((user: any) => user.id !== myAccount.uid));
@@ -201,27 +232,34 @@ export default function Friends() {
 
 	return (
 		<React.Fragment>
-			<FriendsNavTop
-				chatMakingState={chatMakingState}
-				setChatMakingState={setChatMakingState}
-				setAddFriendState={setAddFriendState}
-				checkedState={checkedState}
-				setCheckedState={setCheckedState}
-				myAccount={myAccount}
-				users={users}
-			/>
+			<Head>
+				<meta name='theme-color' content='rgba(241,241,241,0.3)' />
+			</Head>
 			<Grid className={classes.paper}>
+				<FriendsNavTop
+					chatMakingState={chatMakingState}
+					setChatMakingState={setChatMakingState}
+					setAddFriendState={setAddFriendState}
+					checkedState={checkedState}
+					setCheckedState={setCheckedState}
+					myAccount={myAccount}
+					users={users}
+				/>
+
 				<Grid container className={classes.profile}>
 					<Grid item>
 						<Avatar
 							src={myAccount.photoURL}
+							style={{
+								backgroundColor: uidToColor(myAccount.uid),
+							}}
 							className={classes.profileAvatar}>
-							{/* {myAccount.photoURL == null &&
-								myAccount.displayName.charAt(0)} */}
+							{myAccount.photoURL == null &&
+								myAccount.displayName.charAt(0)}
 						</Avatar>
 					</Grid>
 					<Grid item xs>
-						<Typography variant='h5' className={classes.profileName}>
+						<Typography className={classes.profileName}>
 							{myAccount.displayName}
 						</Typography>
 						<Typography className={classes.profileEmail}>
@@ -229,7 +267,11 @@ export default function Friends() {
 						</Typography>
 					</Grid>
 					<Grid item className={classes.groupAvatars}>
-						<AvatarGroup max={4}>
+						<AvatarGroup
+							max={3}
+							style={{
+								height: 36,
+							}}>
 							{members.map((member: any, index) => {
 								if (checkedState[index] === true) {
 									return (
@@ -283,9 +325,7 @@ export default function Friends() {
 									</Avatar>
 								</Grid>
 								<Grid item xs color='secondery'>
-									<Typography
-										variant='h6'
-										className={classes.friendName}>
+									<Typography className={classes.friendName}>
 										{member.userName}
 									</Typography>
 									<Typography className={classes.friendEmail}>
@@ -294,14 +334,36 @@ export default function Friends() {
 								</Grid>
 								<Grid>
 									<Zoom in={chatMakingState}>
-										<Checkbox
-											color='primary'
-											checked={checkedState[index]}
-											onClick={() =>
-												handleChecked(index)
+										<FormControlLabel
+											control={
+												<Checkbox
+													icon={
+														<FavoriteBorder />
+													}
+													checkedIcon={
+														<Favorite />
+													}
+													color='primary'
+													checked={
+														checkedState[
+															index
+														]
+													}
+													onClick={() =>
+														handleChecked(
+															index
+														)
+													}
+													value={
+														checkedState[
+															index
+														]
+													}
+													className={
+														classes.friendCheckbox
+													}
+												/>
 											}
-											value={checkedState[index]}
-											className={classes.friendCheckbox}
 										/>
 									</Zoom>
 								</Grid>
@@ -309,12 +371,14 @@ export default function Friends() {
 						);
 					})}
 				</Grid>
+
+				<FormDialog
+					addFriendState={addFriendState}
+					setAddFriendState={setAddFriendState}
+				/>
+				<FriendsNavBottom />
 			</Grid>
-			<FormDialog
-				addFriendState={addFriendState}
-				setAddFriendState={setAddFriendState}
-			/>
-			<FriendsNavBottom />
+			<div className={classes.background} />
 		</React.Fragment>
 	);
 }

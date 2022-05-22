@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: 'fixed',
 			top: 0,
 			left: 0,
-			zIndex: 1,
+			zIndex: 2,
 			backgroundColor: 'rgba(220,220,220,0.3)',
 			backdropFilter: 'blur(7px)',
 			boxShadow: '0 0 12px 6px rgba(0,0,0,0.1)',

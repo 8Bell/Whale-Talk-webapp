@@ -6,6 +6,7 @@ import { Button, Grid, InputBase } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	form: {
+		zIndex: 2,
 		width: '100%',
 		backgroundColor: 'rgba(220,220,220,0.3)',
 		backdropFilter: 'blur(7px)',

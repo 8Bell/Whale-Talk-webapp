@@ -8,21 +8,33 @@ import { Avatar, Checkbox, Grid, Typography, Zoom } from '@material-ui/core';
 import ChatsNavTop from '../components/chatsNavTop';
 import ChatsNavBottom from '../components/chatsNavBottom';
 import { AvatarGroup } from '@material-ui/lab';
+import Head from 'next/head';
 
 const useStyles = makeStyles((theme: Theme) => ({
+	background: {
+		position: 'fixed',
+		backgroundColor: '#f7f7f7',
+		top: 0,
+		height: '100vh',
+		width: '100vw',
+		zIndex: 0,
+	},
 	root: {
-		minWidth: 500,
+		position: 'absolute',
 		backgroundColor: '#f7f7f7',
 		width: '100vw',
 		height: '100%',
+		zIndex: 1,
 	},
 	paper: {
 		marginLeft: 15,
 		marginRight: 15,
 	},
 	groupAvatars: {
-		marginTop: 20,
-		marginRight: 0,
+		marginTop: 15,
+		marginRight: 15,
+
+		right: 0,
 		zIndex: 0,
 	},
 	groupAvatar: {
@@ -31,34 +43,36 @@ const useStyles = makeStyles((theme: Theme) => ({
 		fontWeight: 500,
 	},
 	chats: {
-		marginTop: 85,
+		marginTop: 67,
 		marginBottom: 100,
 	},
 	chatsTitleBox: {
 		marginBottom: 10,
 	},
 	chatsTitle: {
-		marginTop: 7,
+		marginTop: 3,
 		marginLeft: 14,
 		marginBottom: 6,
 		color: 'gray',
 	},
 	chat: {
-		height: 80,
+		height: 70,
 		borderRadius: '25px',
 		marginTop: 10,
 		marginBottom: 15,
-		backgroundColor: 'rgba(220,220,220,0.2)',
-		boxShadow: '0 0 16px 8px rgba(0,0,0,0.07)',
+		backgroundColor: 'rgba(220,220,220,0.1)',
+		boxShadow: '0 0 15px 4px rgba(0,0,0,0.06)',
 	},
 	chatName: {
 		marginTop: 15,
-		marginLeft: 26,
+		marginLeft: 20,
+		fontSize: 16,
 	},
 	lastDialogue: {
 		marginTop: -3,
-		marginLeft: 27,
+		marginLeft: 20,
 		color: 'gray',
+		fontSize: 15,
 	},
 	chatCheckbox: {
 		marginTop: 20,
@@ -92,7 +106,7 @@ export default function Chats() {
 				setIsLoggedIn(true);
 			} else {
 				setIsLoggedIn(false);
-				router.push('/index');
+				router.push('/');
 			}
 			setInit(true);
 		});
@@ -262,6 +276,9 @@ export default function Chats() {
 
 	return (
 		<React.Fragment>
+			<Head>
+				<meta name='theme-color' content='rgba(241,241,241,0.3)' />
+			</Head>
 			<div className={classes.root}>
 				<ChatsNavTop />
 				<Grid className={classes.paper}>
@@ -287,7 +304,7 @@ export default function Chats() {
 												className={
 													classes.chatName
 												}>
-												{myChat.memberUid.length > 3
+												{myChat.memberUid.length > 2
 													? uidToName(
 															myChat
 																.memberUid[0]
@@ -297,34 +314,12 @@ export default function Chats() {
 															myChat
 																.memberUid[1]
 													  ) +
-													  ', ' +
-													  uidToName(
-															myChat
-																.memberUid[2]
-													  ) +
+													  ' ' +
 													  '외 ' +
 													  (myChat.memberUid
 															.length -
-															3) +
-													  '명의 채팅방'
-													: myChat.memberUid
-															.length >
-													  2
-													? uidToName(
-															myChat
-																.memberUid[0]
-													  ) +
-													  ', ' +
-													  uidToName(
-															myChat
-																.memberUid[1]
-													  ) +
-													  ', ' +
-													  uidToName(
-															myChat
-																.memberUid[2]
-													  ) +
-													  '의 채팅방'
+															2) +
+													  '명'
 													: uidToName(
 															myChat.memberUid.filter(
 																(
@@ -345,7 +340,7 @@ export default function Chats() {
 										<Grid
 											item
 											className={classes.groupAvatars}>
-											<AvatarGroup max={4} spacing={15}>
+											<AvatarGroup max={3} spacing={19}>
 												{myChat.memberUid.map(
 													(
 														uid: any,
@@ -389,19 +384,6 @@ export default function Chats() {
 												)}
 											</AvatarGroup>
 										</Grid>
-
-										<Grid>
-											<Zoom in={false}>
-												<Checkbox
-													color='primary'
-													checked={false}
-													value={false}
-													className={
-														classes.chatCheckbox
-													}
-												/>
-											</Zoom>
-										</Grid>
 									</Grid>
 								);
 							})}
@@ -410,6 +392,7 @@ export default function Chats() {
 				</Grid>
 				<ChatsNavBottom />
 			</div>
+			<div className={classes.background} />
 		</React.Fragment>
 	);
 }

@@ -7,12 +7,24 @@ import { useRouter } from 'next/router';
 import { Avatar, Grid, Typography } from '@material-ui/core';
 import ChatRoomInputBar from '../components/chatRoomInputBar';
 import ChatRoomNavTop from '../components/chatRoomNavTop';
+import Head from 'next/head';
+import { callbackify } from 'util';
 
 const useStyles = makeStyles((theme: Theme) => ({
+	background: {
+		position: 'fixed',
+		backgroundColor: '#fbfbfb',
+		top: 0,
+		height: '100vh',
+		width: '100vw',
+		zIndex: 0,
+	},
 	paper: {
-		minWidth: 500,
+		position: 'absolute',
+		width: 'calc(100vw- 20px)',
 		marginLeft: 10,
 		marginRight: 10,
+		zIndex: 1,
 		'&::-webkit-scrollbar': {
 			display: 'none',
 		},
@@ -25,17 +37,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 	dialogue: {
 		backgroundColor: '#fbfbfb',
-		//backgroundColor: 'green',
 		paddingBottom: 0,
 		paddingTop: 0,
 		display: 'flex',
 	},
-	dialogueAvatarGrid: { width: 85 },
+	dialogueAvatarGrid: { width: 65 },
 	dialogueAvatar: {
-		//top: '20%',
 		left: 10,
-		width: 50,
-		height: 50,
+		width: 40,
+		height: 40,
 		color: theme.palette.getContrastText(theme.palette.primary.main),
 		backgroundColor: theme.palette.primary.main,
 		fontWeight: 500,
@@ -46,50 +56,59 @@ const useStyles = makeStyles((theme: Theme) => ({
 	dialogueWriter: {
 		position: 'relative',
 		height: 30,
-		marginLeft: 10,
+		marginLeft: 0,
 		marginTop: 20,
 		//backgroundColor: 'yellow',
 	},
 	dialogueWriterD: {
 		display: 'none',
 	},
+	dialogueWriterR: {
+		position: 'relative',
+		height: 20,
+		opacity: 0,
+		//backgroundColor: 'yellow',
+	},
 
 	dialogueBox: {
 		position: 'relative',
-		maxWidth: '60%',
-		marginLeft: '-10px',
+		maxWidth: '80%',
+		marginLeft: 0,
 		//marginTop: 10,
-		paddingBottom: 10,
+		paddingBottom: 6,
 		//paddingTop: 10,
 		//backgroundColor: 'green',
 		//height: 50,
 	},
 
 	dialogueText: {
-		maxWidth: '84%',
-		marginLeft: 5,
+		maxWidth: '80%',
+		marginLeft: -4,
 		marginRight: 10,
-		paddingTop: 5,
-		paddingBottom: 4,
-		paddingLeft: 21,
-		paddingRight: 21,
+		paddingTop: 'calc(1px + 2%)',
+		paddingBottom: 'calc(1px + 2%)',
+		paddingLeft: 'calc(3px + 8%)',
+		paddingRight: 'calc(3px + 8%)',
 		position: 'relative',
 		display: 'inline-block',
 		border: 'solid 2px #dddddd',
 		backgroundColor: '#fbfbfb',
 		color: '#333333',
+		fontSize: '16px',
 		fontWeight: 400,
 		borderRadius: 30,
 		marginBottom: 0,
 		marginTop: 0,
 		boxShadow: '0 0 16px 8px rgba(0,0,0,0.05)',
+		wordBreak: 'break-word',
 	},
 	createdTime: {
 		marginTop: 0,
 		marginLeft: 0,
 		color: 'gray',
 		display: 'inline-block',
-		transform: 'translateY(35%)',
+		transform: 'translate(-10%,30%)',
+		fontSize: '12px',
 	},
 	dialogueAvatarR: { display: 'none' },
 
@@ -107,20 +126,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 	dialogueTextR: {
 		maxWidth: '100%',
-		marginLeft: 50,
-		paddingTop: 5,
-		paddingBottom: 4,
-		paddingLeft: 20,
-		paddingRight: 20,
+		marginLeft: 35,
+		paddingTop: 'calc(1px + 2%)',
+		paddingBottom: 'calc(1px + 2%)',
+		paddingLeft: 'calc(3px + 8%)',
+		paddingRight: 'calc(3px + 8%)',
 		position: 'relative',
 		display: 'inline-block',
 		border: 'solid 1px #44546A',
 		borderRadius: 30,
 		backgroundColor: '#44546A',
 		color: '#fbfbfb',
-		float: 'right',
+		fontSize: '16px',
 		fontWeight: 400,
 		boxShadow: '0 0 20px 8px rgba(0,0,0,0.05)',
+		wordBreak: 'break-word',
 	},
 
 	createdTimeR: {
@@ -142,6 +162,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 		color: 'gray',
 		position: 'absolute',
 		display: 'inline-block',
+		fontSize: '12px',
+		transform: 'translate(0,10%)',
 	},
 	dialogueCheckbox: {
 		marginTop: 20,
@@ -392,7 +414,7 @@ export default function ChatRoom({}) {
 				setIsLoggedIn(true);
 			} else {
 				setIsLoggedIn(false);
-				router.push('/index');
+				router.push('/');
 			}
 			setInit(true);
 		});
@@ -420,6 +442,9 @@ export default function ChatRoom({}) {
 
 	return (
 		<React.Fragment>
+			<Head>
+				<meta name='theme-color' content='rgba(241,241,241,0.3)' />
+			</Head>
 			<div>
 				<ChatRoomNavTop
 					chatIndex={chatIndex}
@@ -500,7 +525,17 @@ export default function ChatRoom({}) {
 												className={
 													dialogue.writer ==
 													myAccount.uid
-														? classes.dialogueWriterD
+														? index > 0
+															? dialogue.writer !==
+															  arr[
+																	Number(
+																		index -
+																			1
+																	)
+															  ].writer
+																? classes.dialogueWriterR
+																: classes.dialogueWriterD
+															: classes.dialogueWriterD
 														: index > 0
 														? dialogue.writer !==
 														  arr[
@@ -533,41 +568,39 @@ export default function ChatRoom({}) {
 												</Typography>
 											</Grid>
 
-											{index < arr.length - 1 ? (
-												cToT(dialogue.createdAt) !=
-													cToT(
-														arr[
-															Number(
-																index +
-																	1
-															)
-														].createdAt
-													) && (
-													<Typography
-														className={
-															dialogue.writer ==
-															myAccount.uid
-																? classes.createdTimeL
-																: classes.createdTimeR
-														}>
-														{cToT(
-															dialogue.createdAt
-														)}
-													</Typography>
-												)
-											) : (
-												<Typography
-													className={
-														dialogue.writer ==
-														myAccount.uid
+											<Typography
+												className={
+													dialogue.writer !==
+													myAccount.uid
+														? classes.createdTimeR
+														: index <
+														  arr.length - 1
+														? cToT(
+																dialogue.createdAt
+														  ) !==
+														  cToT(
+																arr[
+																	Number(
+																		index +
+																			1
+																	)
+																]
+																	.createdAt
+														  )
+															? classes.createdTimeL
+															: dialogue.writer !==
+															  arr[
+																	Number(
+																		index +
+																			1
+																	)
+															  ].writer
 															? classes.createdTimeL
 															: classes.createdTimeR
-													}>
-													{cToT(
-														dialogue.createdAt
-													)}
-												</Typography>
-											)}
+														: classes.createdTimeL
+												}>
+												{cToT(dialogue.createdAt)}
+											</Typography>
 
 											<Typography
 												variant='h6'
@@ -600,6 +633,14 @@ export default function ChatRoom({}) {
 																	.createdAt
 														  )
 															? classes.createdTime
+															: dialogue.writer !==
+															  arr[
+																	Number(
+																		index +
+																			1
+																	)
+															  ].writer
+															? classes.createdTime
 															: classes.createdTimeD
 														: classes.createdTime
 												}>
@@ -618,6 +659,7 @@ export default function ChatRoom({}) {
 					scrollToBottom={scrollToBottom}
 				/>
 			</div>
+			<div className={classes.background} />
 			<div ref={scrollRef} />
 		</React.Fragment>
 	);
