@@ -221,8 +221,8 @@ export default function SignIn() {
 						src='./images/whale plastic 2@0.5x.png'
 						alt='whale icon'
 						className={classes.icon}
-						height='300'
-						width='300'
+						height='200'
+						width='200'
 					/>
 
 					<form className={classes.form} noValidate onSubmit={onSubmit}>
