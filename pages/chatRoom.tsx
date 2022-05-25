@@ -77,8 +77,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		//marginTop: 10,
 		paddingBottom: 6,
 		//paddingTop: 10,
-		//backgroundColor: 'green',
-		//height: 50,
+		//backgroundColor: 'yellow',
 	},
 
 	dialogueText: {
@@ -120,7 +119,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		paddingBottom: 10,
 		// paddingTop: 10,
 		overflow: 'hidden',
-		//	backgroundColor: 'yellow',
+		//backgroundColor: 'yellow',
 		marginLeft: 'auto',
 	},
 
@@ -141,6 +140,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		fontWeight: 400,
 		boxShadow: '0 0 20px 8px rgba(0,0,0,0.05)',
 		wordBreak: 'break-word',
+		float: 'right',
 	},
 
 	createdTimeR: {
@@ -149,8 +149,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 	createdTimeD: {
 		marginTop: 0,
 		marginLeft: 0,
-		color: 'gray',
-		display: 'inline-block',
+		//backgroundColor: 'green',
+		display: 'inline',
 		transform: 'translateY(35%)',
 		opacity: '0%',
 	},
@@ -652,6 +652,7 @@ export default function ChatRoom({}) {
 							})}
 						</Grid>
 					</Grid>
+					<div ref={scrollRef} />
 				</Grid>
 				<ChatRoomInputBar
 					thisRoom={roomId}
@@ -660,7 +661,6 @@ export default function ChatRoom({}) {
 				/>
 			</div>
 			<div className={classes.background} />
-			<div ref={scrollRef} />
 		</React.Fragment>
 	);
 }
